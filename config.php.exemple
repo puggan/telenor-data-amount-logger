@@ -1,0 +1,20 @@
+<?php
+
+	define('DATABASE_FILE', 'telenor.sqlite');
+
+	// list of accounts to fetch from
+	$accounts = array();
+
+	// First account
+	$accounts[] = array(
+		'username' => '',
+		'password' => '',
+	);
+
+	// Add a 2nd account (optional)
+/*
+	$accounts[] = array(
+		'username' => '',
+		'password' => '',
+	);
+*/

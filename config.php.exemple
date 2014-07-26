@@ -9,6 +9,7 @@
 	$accounts[] = array(
 		'username' => '',
 		'password' => '',
+		//'account' => '12345, 67890', //optional, useful when there are more then one number connected to the same login
 	);
 
 	// Add a 2nd account (optional)
@@ -16,5 +17,6 @@
 	$accounts[] = array(
 		'username' => '',
 		'password' => '',
+		'accounts = array('01234', '567890'),
 	);
 */

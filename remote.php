@@ -143,9 +143,16 @@
 			/* Set cURL to behave like a normal browser on redirects. */
 			curl_setopt($this->curl_handle, CURLOPT_FOLLOWLOCATION, true);
 
-			/* Tell cURL where to find and store cookies. */
-			curl_setopt($this->curl_handle, CURLOPT_COOKIEJAR, $this->cookie_jar);
-			curl_setopt($this->curl_handle, CURLOPT_COOKIEFILE, $this->cookie_jar);
+			if($this->cookie_jar)
+			{
+				if(!is_writable($this->cookie_jar))
+				{
+					trigger_error("Permisson denied, no write access for cookiefile: '{$this->cookie_jar}'");
+				}
+				/* Tell cURL where to find and store cookies. */
+				curl_setopt($this->curl_handle, CURLOPT_COOKIEJAR, $this->cookie_jar);
+				curl_setopt($this->curl_handle, CURLOPT_COOKIEFILE, $this->cookie_jar);
+			}
 
 			/* Instruct cURL to return the entire page as a string, and not print it out. */
 			curl_setopt($this->curl_handle, CURLOPT_RETURNTRANSFER, true);

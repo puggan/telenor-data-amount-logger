@@ -5,18 +5,16 @@
 	define('TELENOR_LOGIN_URL', "https://minasidor.telenor.se/minasidor/login");
 	define('TELENOR_DATA_URL', "https://minasidor.telenor.se/minasidor/shareable/ShareableLagePuffData.do");
 
-	require_once("config.php");
-	require_once("remote.php");
+	require_once(__DIR__ . "/config.php");
+	require_once(__DIR__ . "/remote.php");
 
 	if(!isset($accounts)) die("Configfile have no accounts. (variable missing)\n");
 	if(!is_array($accounts)) die("Configfile have no accounts. (variable bad type)\n");
 	if(!count($accounts)) die("Configfile have no accounts. (variable empty)\n");
 
-	// FIXME use is_defined or somthing
-	if(DATABASE_FILE == 'DATABASE_FILE') die("Failed to open database (constan DATABASE_FILE missing)\n");
+	if(!defined('DATABASE_FILE')) die("Failed to open database (constan DATABASE_FILE missing)\n");
 
-	// FIXME: use class_exists
-	if(FALSE) die("Failed to open database (php don't have support for SQLite3)\n");
+	if(!class_exists("SQLite3")) die("Failed to open database (php don't have support for SQLite3)\n");
 
 	$db = new SQLite3(DATABASE_FILE);
 
@@ -39,7 +37,7 @@
 		// config for telenors https
 		$web->cipher_list = 'RC4-MD5';
 		$web->force_sslversion(3);
-		$web->add_cert_file("telenor_cert.asc");
+		$web->add_cert_file(__DIR__ . "/telenor_cert.asc");
 
 		/* TODO:
 		 * keep seperate accoutn-cookie
